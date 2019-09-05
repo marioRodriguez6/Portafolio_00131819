@@ -1,25 +1,38 @@
 #include <iostream>
 #include <cmath>
+
 using namespace std;
 
-struct complejos{
-float rea;
-float ima;
-float vabs;
-};
+int suma(int a, int b){
+    if (b==0){
 
-int main(){
-    complejos cj;
-cout<<"Digite la parte real del numero complejo: ";
-cin>>cj.rea;
+        //cout<<"b= "<<b<<" caso base"<<endl;
 
-cout<<"Digite la parte imaginaria del numero complejo: ";
-cin>>cj.ima;
+        return 1;
+    }
 
-cj.vabs = sqrt((cj.ima*cj.ima)+(cj.rea*cj.rea));
+    else{
 
-cout.precision(4);
-cout<<"\nvalor absoluto del numero complejo es: "<<cj.vabs<<endl;
+        int z = pow(a,b);
 
-return 0;
+        //cout<<"z= "<<z<<" b= "<<b<<" a= "<<a<<endl;
+
+        return z+suma(a,b-1);
+    }
+
+
+}
+int main(void) {
+    int x=0, n=0;
+
+    cout<<"ingrese el valor de x: "<<endl;
+    cin>>x;
+    cout<<"ingrese el valor de n:  "<<endl;
+    cin>>n;
+
+    //cout<<"la sumatoria es: "<<endl;
+    int r = suma(x,n);
+    cout<<"Resultado de la sumatoria es: "<<r<<endl;
+
+    return 0;
 }
