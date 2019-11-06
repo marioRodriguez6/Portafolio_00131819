@@ -1,0 +1,61 @@
+ejercicio 1)
+
+    // A − B/(C*D$E)
+
+    /intituivo
+
+    A-B/(C*D$E)
+    A-B/(C*DE$)
+    A-B/(CDE$*)
+    AB-CDE$*/
+
+    / algoritmo:
+        symb	opstack		prefijo
+        A 		        	A
+        -	        -		A
+        B	        -		AB
+        /	        -/		AB
+        (	       -/(		AB
+        C	       -/(		ABC
+        *	    -/(*		ABC
+        D	    -/(*		ABCD
+        $	    -/(*$		ABCD
+        E	    -/(*$		ABCDE
+        )	        -/*		ABCDE$
+                    -/		ABCDE$*
+                    -		ABCDE$*/
+                            ABCDE$*/-
+
+ejericio 2)
+
+    // ((A + B)*C − (D − E))$(F + G)
+
+    ((A+B)*C-(D-E))$(F+G)
+    ((AB+)*C-(DE-))$(FG+)
+    (AB+C*DE--)$(FG+)
+    AB+C*DE--FG+$
+
+    // algoritmo:
+        symb	opstack		prefijo
+        ( 	        (
+        (	        ((
+        A	        ((	   	A
+        +	        ((+		A
+        B	        ((+		AB
+        )	        (		AB+
+        *	        (*		AB+
+        C	        (*		AB+C
+        -	        (*		AB+C
+        (	        (-(		AB+C*
+        D	        (-(		AB+C*D
+        -	        (-(-	AB+C*D
+        E	        (-(-	AB+C*DE
+        )	        (-		AB+C*DE-
+        )	        		AB+C*DE--
+        $	        $		AB+C*DE--
+        (	        $(		AB+C*DE--
+        F	        $(		AB+C*DE--F
+        +	        $(+		AB+C*DE--F
+        G	        $(+		AB+C*DE--FG
+        )	        $		AB+C*DE--FG+
+                            AB+C*DE--FG+$

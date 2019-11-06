@@ -1,3 +1,4 @@
+//opcion 1 (dejando la pila  vacia y mostrando el ultimo dato.)
 #include <iostream>
 #include <stack>
 using namespace std;
@@ -13,13 +14,14 @@ int main(){
 	s.push(5);
 	s.push(6);
 	s.push(7);
+    s.push(8);
 
-
+    //1) dejando la pila vacia.
 	while(!s.empty()){
       i = s.top();
       s.pop();
        	}
-
+// 2) mostrando el ultimo dato jaja
 cout<<"ultimo digito: "<<i<<endl;
 
 	return 0;
