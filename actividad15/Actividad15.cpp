@@ -97,34 +97,37 @@ void postorden(Arbol a){
     }
 }
 
-void recorrerArbol(Arbol a){
-    cout << "Recorrido PRE orden:"; preorden(a); cout << endl;
-    cout << "Recorrido IN orden:"; inorden(a); cout << endl;
-    cout << "Recorrido POST orden:"; postorden(a); cout << endl;
+void izqP(Arbol a, int *n){
+    (*n)++;
+    if(a->izq != NULL){
+        izqP(a->izq, n);
+    }
 }
 
-void datos(Arbol a, int *der, int *izq){
+void derP(Arbol a, int *n){
+    (*n)++;
     if(a->der != NULL){
-        (*der)++;
-        datos(a->der, der, izq);
-    }
-    if(a->izq != NULL){
-        (*izq)++;
-        datos(a->izq, der, izq);
+        derP(a->der, n);
     }
 }
 
 void verProfudidad(Arbol a){
     int izq = 0, der = 0;
-    datos(a, &der, &izq);
 
-    if(izq > der){
-        cout << "La profundidad es de: " << izq << endl;
+    if(a->izq != NULL){
+        izqP(a->izq, &izq);
+    }
+
+    if(a->der != NULL){
+        derP(a->der, &der);
+    }
+
+    if(izq >= der){
+        cout << "La profundidad es: " << izq << endl;
     }else{
-        cout << "La profundidad es de: " << der << endl;
+        cout << "La profundidad es: " << der << endl;
     }
 }
-
 int main(){
     int variable = 0;
     cout<<"Inicializando arbol...\nValor contenido en la raiz: ";
@@ -135,17 +138,15 @@ int main(){
     bool continuar = true;
     do{
         int opcion = 0;
-        cout << "Menu: \n\t1) Agregar\n\t2) Recorrer"
-        << "\n\t3) verProfudidad \n\t4) salir. \n\tOpcion elegida: ";
+        cout << "Menu: \n\t1) Agregar"
+        << "\n\t2) verProfudidad \n\t3) salir. \n\tOpcion elegida: ";
         cin >> opcion;
         switch(opcion){
             case 1: agregarNodo(arbol);
                 break;
-            case 2: recorrerArbol(arbol);
+            case 2: verProfudidad(arbol);
                 break;
-            case 3: verProfudidad(arbol);
-                break;
-            case 4: continuar = false;
+            case 3: continuar = false;
                 break;
             default: cout << "Opcion erronea!" << endl;
                 break;
