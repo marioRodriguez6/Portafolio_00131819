@@ -1,5 +1,3 @@
-//Oscar Enrique Orellana Monterrosa - 00258219 - sec:: 02
-//Mario Josue Rodriguez Miguel - 00131819 - sec:: 02
 #include <iostream>
 using namespace std;
 
@@ -73,36 +71,6 @@ void agregarNodo(Arbol a){
     else
         asignarDer(p, numero);
 }
-
-//------ Recorrer un arbol (in, pre y post orden) ------
-void preorden(Arbol a){
-    if(a != NULL){
-        cout << " " << a->info;
-        preorden(a->izq);
-        preorden(a->der);
-    }
-}
-void inorden(Arbol a){
-    if(a != NULL){
-        inorden(a->izq);
-        cout << " " << a->info;
-        inorden(a->der);
-    }
-}
-void postorden(Arbol a){
-    if(a != NULL){
-        postorden(a->izq);
-        postorden(a->der);
-        cout << " " << a->info;
-    }
-}
-
-void recorrerArbol(Arbol a){
-    cout << "Recorrido PRE orden:"; preorden(a); cout << endl;
-    cout << "Recorrido IN orden:"; inorden(a); cout << endl;
-    cout << "Recorrido POST orden:"; postorden(a); cout << endl;
-}
-
 void datos(Arbol a, int *der, int *izq){
     if(a->der != NULL){
         (*der)++;
@@ -114,16 +82,39 @@ void datos(Arbol a, int *der, int *izq){
     }
 }
 
-void verProfudidad(Arbol a){
+int deeptree(Arbol a){
     int izq = 0, der = 0;
     datos(a, &der, &izq);
 
     if(izq > der){
-        cout << "La profundidad es de: " << izq << endl;
+        return izq;
     }else{
-        cout << "La profundidad es de: " << der << endl;
+        return der;
+    }
+    return 0;
+}
+
+void treenodes(Arbol a, int *sumanods, int *totalnods){
+    if(a != NULL){
+        (*totalnods)++;
+        (*sumanods)+= a->info;
+        treenodes(a->izq, sumanods, totalnods);
+        treenodes(a->der, sumanods, totalnods);
     }
 }
+
+void datos_arbol(Arbol a){
+    cout << "La altura del arbol es: " << deeptree(a) << endl;
+
+    int sumanods=0;
+    int nodos=0;
+    treenodes(a, &sumanods, &nodos);
+
+    cout << "La suma de los nodos del arbol es: " << sumanods << endl;
+    cout << "La cantidad de nodos es: " << nodos <<endl;
+
+}
+//fin
 
 int main(){
     int variable = 0;
@@ -131,26 +122,23 @@ int main(){
     cin >> variable;
 
     Arbol arbol = crearArbol(variable);
-
-    bool continuar = true;
-    do{
+        do{
         int opcion = 0;
-        cout << "Menu: \n\t1) Agregar\n\t2) Recorrer"
-        << "\n\t3) verProfudidad \n\t4) salir. \n\tOpcion elegida: ";
+        cout << "Menu: \n\t1) Agregar"
+        << "\n\t2) Mostrar altura, suma de nodos y cantidad de nodos"
+        << "\n\t3) Salir\n\tOpcion elegida: ";
         cin >> opcion;
         switch(opcion){
             case 1: agregarNodo(arbol);
                 break;
-            case 2: recorrerArbol(arbol);
+            case 2: datos_arbol(arbol);
                 break;
-            case 3: verProfudidad(arbol);
-                break;
-            case 4: continuar = false;
+            case 3: return 0;
                 break;
             default: cout << "Opcion erronea!" << endl;
                 break;
         }
-    }while(continuar);
+    }while(true);
 
     return 0;
 }
